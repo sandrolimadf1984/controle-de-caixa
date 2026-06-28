@@ -84,6 +84,7 @@
   .fpop .bcan{background:var(--glass);border:1px solid var(--stroke-soft);color:var(--ink)}
   .fpop .brem{background:rgba(255,107,122,.14);border:1px solid rgba(255,107,122,.4);color:var(--coral)}
   .fpop.comb{width:340px}
+  #fundoPop,#ajustePop{left:50%;top:50%;transform:translate(-50%,-50%)}
   .comb-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:6px}
   .comb-grid label{display:flex;flex-direction:column;gap:4px;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);font-weight:700}
   .comb-grid input{margin-bottom:0}
@@ -241,6 +242,33 @@
   .day.has .dv{color:var(--gold)}
   .day.sun{background:rgba(2,7,14,.85);border-color:rgba(120,190,255,.06);box-shadow:inset 0 0 16px rgba(0,0,0,.4)}
   .day.sun .dn{color:rgba(255,255,255,.72)}
+  .day.fer{background:rgba(2,7,14,.85);border-color:rgba(120,190,255,.06);box-shadow:inset 0 0 16px rgba(0,0,0,.4)}
+  .day.fer .dn{color:rgba(255,255,255,.72)}
+  .day.fer::after{content:"feriado";position:absolute;bottom:6px;left:0;right:0;text-align:center;font-size:9px;letter-spacing:.06em;color:rgba(146,225,255,.85);text-transform:uppercase}
+  .day{position:relative}
+  .obs-tools{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+  .ferbtn{border:1px solid var(--stroke-soft);background:rgba(8,20,32,.6);color:var(--ink);border-radius:9px;padding:7px 13px;font-weight:700;cursor:pointer;font-size:13px}
+  .ferbtn:hover{border-color:rgba(146,225,255,.5)}
+  .ferbtn.on{background:linear-gradient(180deg,#9fe3ff,#36a9d4);color:#08202e;border-color:transparent;box-shadow:0 0 14px rgba(92,225,255,.4)}
+  .fundo-box{margin-top:14px;border:1px solid var(--stroke-soft);border-radius:12px;padding:12px;background:rgba(8,20,32,.4)}
+  .fundo-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .fundo-cell{border:1px solid var(--stroke-soft);border-radius:10px;padding:10px 12px;background:rgba(2,7,14,.4);display:flex;flex-direction:column;gap:2px}
+  .fundo-cell .fl{font-size:10px;letter-spacing:.1em;color:var(--ink-dim);font-weight:800;text-transform:uppercase}
+  .fundo-cell .fv{font-size:22px;font-weight:800;color:#9fe3ff}
+  .fundo-cell .fdiff{font-size:12px;font-weight:700}
+  .fundo-cell.ok{border-color:rgba(120,240,160,.4)}
+  .fundo-cell.ok .fv{color:#7df0a8}
+  .fundo-cell.bad{border-color:rgba(255,120,140,.5)}
+  .fundo-cell.bad .fv{color:#ff8aa0}
+  .fundo-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+  .fxbtn{border:1px solid var(--stroke-soft);background:rgba(8,20,32,.6);color:var(--ink);border-radius:9px;padding:7px 12px;font-weight:700;cursor:pointer;font-size:12.5px}
+  .fxbtn:hover{filter:brightness(1.15)}
+  .fxbtn.in{border-color:rgba(120,240,160,.45);color:#9affc0}
+  .fxbtn.out{border-color:rgba(255,150,160,.45);color:#ffb0bd}
+  .fundo-hint{margin-top:9px;font-size:11px;color:var(--ink-dim);line-height:1.5}
+  .fxlab{display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--ink-dim);font-weight:700;margin-bottom:10px}
+  .fxlab input{background:rgba(2,7,14,.6);border:1px solid var(--stroke-soft);border-radius:8px;padding:9px 11px;color:var(--ink);font-size:15px;font-weight:700}
+  .ajuste-hint{font-size:11px;color:var(--ink-dim);margin-bottom:10px}
   .day.blank{background:none;border:none;box-shadow:none;cursor:default;pointer-events:none}
   @media(max-width:680px){.day .dv{font-size:11px}.day .dn{font-size:26px}}
 
@@ -414,6 +442,20 @@
   <div class="frow"><button class="binc" id="cbInc">Incluir venda</button><button class="bcan" id="cbCan">Cancelar</button></div>
 </div>
 
+<div class="fpop comb" id="fundoPop">
+  <h5>Fundo Fixo / Em Caixa</h5>
+  <label class="fxlab">Valor do fundo fixo (R$) — fica fixo<input id="fpFundoVal" inputmode="decimal" placeholder="ex.: 150,00" autocomplete="off"></label>
+  <label class="fxlab">Quanto tem agora em caixa (R$)<input id="fpCaixaVal" inputmode="decimal" placeholder="ex.: 143,00" autocomplete="off"></label>
+  <div class="frow"><button class="binc" id="fpFundoOk">Salvar</button><button class="bcan" id="fpFundoCan">Cancelar</button></div>
+</div>
+
+<div class="fpop comb" id="ajustePop">
+  <h5 id="ajusteTit">Ajustar caixa</h5>
+  <label class="fxlab" id="ajusteLbl">Valor (R$)<input id="apVal" inputmode="decimal" placeholder="0,00" autocomplete="off"></label>
+  <div class="ajuste-hint" id="ajusteHint"></div>
+  <div class="frow"><button class="binc" id="apOk">Confirmar</button><button class="bcan" id="apCan">Cancelar</button></div>
+</div>
+
 <!-- Month view -->
 <div class="overlay" id="ovMonth"><div class="sheet" role="dialog" aria-modal="true">
   <div class="shead"><div class="htitle"><span class="ico" id="mIco"></span><h3 id="mName"></h3></div><button class="xbtn" data-close>✕</button></div>
@@ -464,7 +506,22 @@
   <button class="addatt" id="addAtt">+ Adicionar atendente</button>
   <p class="hint">Digite o valor de cada venda e tecle <b>Enter</b> (ou +) para lançar. Cada venda fica separada; a coluna <b>Total</b> mostra a soma do atendente.</p>
   <div class="panel" style="margin-top:16px"><h4>Observações do dia</h4>
+    <div class="obs-tools">
+      <button class="ferbtn" id="ferBtn" type="button">🏖️ Feriado</button>
+    </div>
     <textarea id="dObs" class="obs" placeholder="Anote aqui qualquer observação deste dia (ocorrências, conferências, pendências...)"></textarea>
+    <div class="fundo-box" id="fundoBox">
+      <div class="fundo-row">
+        <div class="fundo-cell"><span class="fl">FUNDO FIXO</span><span class="fv" id="fxFundo">—</span></div>
+        <div class="fundo-cell caixa" id="fxCaixaCell"><span class="fl">EM CAIXA</span><span class="fv" id="fxCaixa">—</span><span class="fdiff" id="fxDiff"></span></div>
+      </div>
+      <div class="fundo-actions">
+        <button class="fxbtn def" id="fxSetBtn" type="button">⚙️ Definir fundo fixo / caixa</button>
+        <button class="fxbtn out" id="fxOutBtn" type="button">− Retirar</button>
+        <button class="fxbtn in" id="fxInBtn" type="button">+ Incluir</button>
+      </div>
+      <div class="fundo-hint">O fundo fixo é o valor que fica sempre na unidade para troco. Use <b>Retirar</b> / <b>Incluir</b> para ajustar o que está em caixa. Vermelho = faltando · Verde = certo ou sobrando.</div>
+    </div>
   </div>
   <div class="panel" style="margin-top:16px"><h4>Ranking do dia (+ vendeu)</h4><div class="bar-h" id="rankDay"></div></div>
   <div class="day-charts">
@@ -853,7 +910,8 @@ function miniRank(id,list,cls){
 }
 
 /* ===== format ===== */
-function ticketHTML(total,cad){return `ticket médio : <b>${fmt(cad>0?total/cad:0)}</b> por dia`;}
+function daysFilled(y,months){let n=0;months.forEach(m=>{const dm=daysInMonth(y,m);for(let d=1;d<=dm;d++){const t=dayTotals(y,m,d);if(t.geral+t.col>0)n++;}});return n;}
+function ticketHTML(total,days){return `ticket médio : <b>${fmt(days>0?total/days:0)}</b> por dia`;}
 function fmt(n){return "R$ "+(n<0?"-":"")+Math.abs(n).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});}
 function fmtShort(n){if(!n)return "—";return Math.abs(n)>=1000?(n/1000).toLocaleString("pt-BR",{maximumFractionDigits:1})+"k":n.toLocaleString("pt-BR",{maximumFractionDigits:0});}
 function parseNum(s){if(s==null)return 0;s=String(s).trim().replace(/\s|R\$/g,"");if(!s)return 0;if(s.includes(","))s=s.replace(/\./g,"").replace(",",".");const n=parseFloat(s);return isNaN(n)?0:n;}
@@ -899,7 +957,7 @@ function render(){
   document.getElementById("aCol").textContent=fmt(col);
   const yrCad=cadastroCount(collectSales(year,[0,1,2,3,4,5,6,7,8,9,10,11]));
   document.getElementById("aCadAno").innerHTML=`<b>${yrCad.toLocaleString("pt-BR")}</b> <span class="cadu">CADASTRO${yrCad===1?"":"S"}</span>`;
-  document.getElementById("aTicket").innerHTML=ticketHTML(rec,yrCad);
+  document.getElementById("aTicket").innerHTML=ticketHTML(rec,daysFilled(year,[0,1,2,3,4,5,6,7,8,9,10,11]));
   document.getElementById("aPix").textContent=fmt(pixY);
   document.getElementById("aDin").textContent=fmt(dinY);
   document.getElementById("aCar").textContent=fmt(carY);
@@ -981,7 +1039,7 @@ function openMonth(m){openM=m;document.getElementById("mName").textContent=`${ME
 function renderMonth(){
   const m=openM,t=monthTotals(year,m);
   document.getElementById("cmGer").textContent=fmt(t.geral);
-  document.getElementById("cmTicket").innerHTML=ticketHTML(t.geral,cadastroCount(collectSales(year,[m])));
+  document.getElementById("cmTicket").innerHTML=ticketHTML(t.geral,daysFilled(year,[m]));
   document.getElementById("cmPix").textContent=fmt(t.pix);
   document.getElementById("cmDin").textContent=fmt(t.din);
   document.getElementById("cmCar").textContent=fmt(t.car);
@@ -993,8 +1051,8 @@ function renderMonth(){
   const first=(new Date(year,m,1).getDay()+6)%7; // Monday-first offset
   for(let i=0;i<first;i++){const sp=document.createElement("div");sp.className="day blank";g.appendChild(sp);}
   for(let d=1;d<=n;d++){
-    const dt=dayTotals(year,m,d),has=dayEntries(year,m,d).length>0,wd=new Date(year,m,d).getDay(),sun=(wd===0);
-    const b=document.createElement("button");b.className="day"+(has?" has":"")+(sun?" sun":"");
+    const dt=dayTotals(year,m,d),has=dayEntries(year,m,d).length>0,wd=new Date(year,m,d).getDay(),sun=(wd===0),fer=isFeriado(year,m,d);
+    const b=document.createElement("button");b.className="day"+(has?" has":"")+(sun?" sun":"")+(fer?" fer":"");
     b.innerHTML=`<span class="dn">${d}</span><span class="dv">${has?fmtShort(dt.geral):""}</span>`;
     b.onclick=()=>openDay(d);g.appendChild(b);
   }
@@ -1056,7 +1114,74 @@ function openDay(d){
   const obsEl=document.getElementById("dObs");
   obsEl.value=getObs(year,openM,d);
   obsEl.oninput=()=>{setObs(year,openM,openD,obsEl.value);};
+  syncFerBtn();
+  renderFundo();
   hide("ovMonth");show("ovDay");
+}
+function syncFerBtn(){
+  const on=isFeriado(year,openM,openD);
+  const b=document.getElementById("ferBtn");
+  b.classList.toggle("on",on);
+  b.textContent=on?"🏖️ Feriado ✓":"🏖️ Feriado";
+}
+function toggleFeriado(){
+  const on=!isFeriado(year,openM,openD);
+  setFeriado(year,openM,openD,on);
+  const obsEl=document.getElementById("dObs");
+  let txt=obsEl.value||"";
+  const has=/^\s*FERIADO\b/i.test(txt);
+  if(on&&!has){txt=("FERIADO\n"+txt).trim()+(txt.trim()?"":"");obsEl.value=txt.replace(/\n+$/,"")||"FERIADO";}
+  else if(!on&&has){obsEl.value=txt.replace(/^\s*FERIADO\b[^\n]*\n?/i,"").replace(/^\n+/,"");}
+  setObs(year,openM,openD,obsEl.value);
+  syncFerBtn();
+}
+function renderFundo(){
+  const f=getFundo(),c=getCaixa();
+  document.getElementById("fxFundo").textContent=(f!=null)?fmt(f):"—";
+  const caixaEl=document.getElementById("fxCaixa"),cell=document.getElementById("fxCaixaCell"),diff=document.getElementById("fxDiff");
+  cell.classList.remove("ok","bad");
+  if(c==null){caixaEl.textContent="—";diff.textContent="";return;}
+  caixaEl.textContent=fmt(c);
+  if(f!=null){
+    const d=+(c-f).toFixed(2);
+    if(d<0){cell.classList.add("bad");diff.textContent="faltando "+fmt(Math.abs(d));}
+    else if(d>0){cell.classList.add("ok");diff.textContent="sobrando "+fmt(d);}
+    else{cell.classList.add("ok");diff.textContent="certo ✓";}
+  } else diff.textContent="";
+}
+function openFundoPop(){
+  const f=getFundo(),c=getCaixa();
+  document.getElementById("fpFundoVal").value=(f!=null)?String(f).replace(".",","):"";
+  document.getElementById("fpCaixaVal").value=(c!=null)?String(c).replace(".",","):"";
+  document.getElementById("fundoPop").style.display="block";
+  setTimeout(()=>document.getElementById("fpFundoVal").focus(),30);
+}
+function saveFundoPop(){
+  const fRaw=document.getElementById("fpFundoVal").value.trim();
+  const cRaw=document.getElementById("fpCaixaVal").value.trim();
+  if(fRaw!=="")setFundo(parseNum(fRaw));
+  if(cRaw!=="")setCaixa(parseNum(cRaw)); else if(getCaixa()==null&&fRaw!=="")setCaixa(parseNum(fRaw));
+  document.getElementById("fundoPop").style.display="none";
+  renderFundo();
+}
+let ajusteMode="in";
+function openAjuste(mode){
+  ajusteMode=mode;
+  document.getElementById("ajusteTit").textContent=mode==="in"?"+ Incluir em caixa":"− Retirar do caixa";
+  document.getElementById("ajusteHint").textContent=mode==="in"?"Ex.: paciente pagou e não quis o troco, reposição, etc.":"Ex.: alguém pegou para dar troco, envio a mais, emergência liberada, etc.";
+  document.getElementById("apVal").value="";
+  document.getElementById("ajustePop").style.display="block";
+  setTimeout(()=>document.getElementById("apVal").focus(),30);
+}
+function applyAjuste(){
+  const raw=document.getElementById("apVal").value.trim();
+  const v=parseNum(raw);
+  if(raw!==""&&v!==0){
+    let c=getCaixa();if(c==null)c=getFundo()||0;
+    c=+(c+(ajusteMode==="in"?v:-v)).toFixed(2);
+    setCaixa(c);renderFundo();
+  }
+  document.getElementById("ajustePop").style.display="none";
 }
 function getObs(y,m,d){return (state._obs&&state._obs[y]&&state._obs[y][m]&&state._obs[y][m][d])||"";}
 function setObs(y,m,d,txt){
@@ -1068,6 +1193,18 @@ function setObs(y,m,d,txt){
   persist();
 }
 function blankEntry(){return {atendente:"",pix:[],dinheiro:[],cartao:[],coleta:[]};}
+function isFeriado(y,m,d){return !!(state._feriado&&state._feriado[y]&&state._feriado[y][m]&&state._feriado[y][m][d]);}
+function setFeriado(y,m,d,on){
+  if(!state._feriado)state._feriado={};
+  if(!state._feriado[y])state._feriado[y]={};
+  if(!state._feriado[y][m])state._feriado[y][m]={};
+  if(on)state._feriado[y][m][d]=1; else delete state._feriado[y][m][d];
+  persist();
+}
+function getFundo(){return (state._fundoFixo!=null)?state._fundoFixo:null;}
+function getCaixa(){return (state._emCaixa!=null)?state._emCaixa:null;}
+function setFundo(v){state._fundoFixo=v;persist();}
+function setCaixa(v){state._emCaixa=v;persist();}
 function renderDayTable(){
   const body=document.getElementById("cxBody");body.innerHTML="";
   dayModel.forEach((e,ri)=>{
@@ -1359,7 +1496,7 @@ function openPeriod(title,months){
   let pix=0,din=0,car=0,col=0;
   const rows=months.map(m=>{const t=monthTotals(year,m);pix+=t.pix;din+=t.din;car+=t.car;col+=t.col;return {m,t};});
   document.getElementById("cpGer").textContent=fmt(pix+din+car);
-  document.getElementById("cpTicket").innerHTML=ticketHTML(pix+din+car,cadastroCount(collectSales(year,months)));
+  document.getElementById("cpTicket").innerHTML=ticketHTML(pix+din+car,daysFilled(year,months));
   document.getElementById("cpPix").textContent=fmt(pix);
   document.getElementById("cpDin").textContent=fmt(din);
   document.getElementById("cpCar").textContent=fmt(car);
@@ -1467,6 +1604,18 @@ document.getElementById("fpDesc").addEventListener("keydown",e=>{if(e.key==="Ent
 ["cbPix","cbDin","cbCar","cbCol"].forEach(id=>document.getElementById(id).addEventListener("input",updateCombTotal));
 document.getElementById("cbInc").onclick=applyCombPop;
 document.getElementById("cbCan").onclick=closeCombPop;
+document.getElementById("ferBtn").onclick=toggleFeriado;
+document.getElementById("fxSetBtn").onclick=openFundoPop;
+document.getElementById("fxInBtn").onclick=()=>openAjuste("in");
+document.getElementById("fxOutBtn").onclick=()=>openAjuste("out");
+document.getElementById("fpFundoOk").onclick=saveFundoPop;
+document.getElementById("fpFundoCan").onclick=()=>document.getElementById("fundoPop").style.display="none";
+document.getElementById("apOk").onclick=applyAjuste;
+document.getElementById("apCan").onclick=()=>document.getElementById("ajustePop").style.display="none";
+["fpFundoVal","fpCaixaVal"].forEach(id=>document.getElementById(id).addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();saveFundoPop();}}));
+document.getElementById("apVal").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();applyAjuste();}});
+document.addEventListener("mousedown",e=>{const p=document.getElementById("fundoPop");if(p&&p.style.display==="block"&&!p.contains(e.target)&&e.target.id!=="fxSetBtn")p.style.display="none";});
+document.addEventListener("mousedown",e=>{const p=document.getElementById("ajustePop");if(p&&p.style.display==="block"&&!p.contains(e.target)&&e.target.id!=="fxInBtn"&&e.target.id!=="fxOutBtn")p.style.display="none";});
 document.getElementById("cbDesc").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();applyCombPop();}});
 document.addEventListener("mousedown",e=>{const p=document.getElementById("combPop");if(p&&p.style.display==="block"&&!p.contains(e.target)&&!(e.target.classList&&e.target.classList.contains("combbtn")))closeCombPop();});
 document.addEventListener("mousedown",e=>{const p=document.getElementById("fontePop");if(p&&p.style.display==="block"&&!p.contains(e.target)&&!(e.target.classList&&e.target.classList.contains("fbtn")))closeFontePop();});
