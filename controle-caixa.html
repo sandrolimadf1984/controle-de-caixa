@@ -72,7 +72,7 @@
   .fonte-item button{background:none;border:none;color:var(--ink-faint);cursor:pointer;font-size:15px;line-height:1;padding:0 2px}
   .fonte-item button:hover{color:var(--coral)}
   .sale .fbtn{background:none;border:none;cursor:pointer;font-size:12px;line-height:1;padding:0 1px;margin-left:1px}
-  .sale .fbtn.add{color:#7fe0ff;font-weight:800}
+  .sale .fbtn.add{color:#ff6b7a;font-weight:900;font-size:14px}
   .sale .fbtn.ok{color:#46e0a0}
   .fpop{position:fixed;z-index:70;display:none;background:rgba(10,24,38,.99);border:1px solid var(--stroke);border-radius:12px;padding:12px;box-shadow:0 16px 40px rgba(0,0,0,.6);width:300px}
   .fpop h5{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#46e0a0;margin-bottom:8px;font-weight:700}
@@ -195,12 +195,12 @@
   .arank{margin-top:18px;border-top:1px solid rgba(255,255,255,.14);padding-top:14px}
   .arank h4{text-align:center;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.72);font-weight:700;margin-bottom:14px}
   .abar{display:flex;flex-direction:column;gap:9px}
-  .abar .row{display:grid;grid-template-columns:120px 1fr 110px;gap:10px;align-items:center;font-size:13px;color:#ffeef3}
-  .abar .nm{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .abar .row{display:grid;grid-template-columns:140px 1fr 150px;gap:10px;align-items:center;font-size:14.5px;color:#ffeef3}
+  .abar .nm{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .abar .nm .rk{display:inline-block;width:24px;color:var(--gold);font-weight:800}
-  .abar .track{height:15px;border-radius:8px;background:rgba(255,255,255,.13);overflow:hidden}
-  .abar .fill{height:100%;border-radius:8px;background:linear-gradient(90deg,#5ce1ff,#9dffe6);box-shadow:0 0 12px rgba(157,255,230,.45)}
-  .abar .val{text-align:right;font-variant-numeric:tabular-nums;font-weight:800;color:#9dffe6}
+  .abar .track{height:10px;border-radius:6px;background:rgba(255,255,255,.13);overflow:hidden}
+  .abar .fill{height:100%;border-radius:6px;background:linear-gradient(90deg,#5ce1ff,#9dffe6);box-shadow:0 0 12px rgba(157,255,230,.45)}
+  .abar .val{text-align:right;font-variant-numeric:tabular-nums;font-weight:800;color:#9dffe6;font-size:15px;white-space:nowrap}
   @media(max-width:560px){.annual .grid3{grid-template-columns:1fr;gap:8px}.annual .spark{display:none}.annual .agrid{grid-template-columns:1fr 1fr}.abar .row{grid-template-columns:84px 1fr 92px}}
 
   .overlay{position:fixed;inset:0;background:rgba(4,12,22,.74);backdrop-filter:blur(6px);display:none;
@@ -277,12 +277,13 @@
   .daytip b{color:var(--ink);font-weight:600;margin-right:6px}
   #dailyChart .dayhit{cursor:pointer}
   .bar-h{display:flex;flex-direction:column;gap:9px}
-  .bar-h .row{display:grid;grid-template-columns:96px 1fr 96px;gap:10px;align-items:center;font-size:13px}
-  .bar-h .row .nm{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .bar-h .track{height:14px;border-radius:7px;background:rgba(120,190,255,.08);overflow:hidden}
-  .bar-h .fill{height:100%;border-radius:7px;background:linear-gradient(90deg,var(--cyan-deep),var(--cyan));box-shadow:0 0 10px rgba(92,225,255,.4)}
-  .bar-h .val{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
+  .bar-h .row{display:grid;grid-template-columns:120px 1fr 132px;gap:10px;align-items:center;font-size:14.5px}
+  .bar-h .row .nm{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .bar-h .track{height:10px;border-radius:6px;background:rgba(120,190,255,.08);overflow:hidden}
+  .bar-h .fill{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--cyan-deep),var(--cyan));box-shadow:0 0 10px rgba(92,225,255,.4)}
+  .bar-h .val{text-align:right;font-variant-numeric:tabular-nums;font-weight:800;font-size:15px;white-space:nowrap}
   .bar-h .row .nm .rk{display:inline-block;width:22px;color:var(--gold);font-weight:800}
+  .pctval{font-size:.72em;color:var(--ink-dim);font-weight:700;margin-left:5px;font-variant-numeric:tabular-nums}
   .tri{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
   @media(max-width:680px){.tri{grid-template-columns:1fr}}
   .tricol .trih{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;text-align:center}
@@ -300,14 +301,14 @@
   .bar-mini .empty{font-size:12px;padding:8px}
 
   .pay-bars{display:flex;flex-direction:column;gap:11px}
-  .pay-bars .row{display:grid;grid-template-columns:96px 1fr 96px;gap:10px;align-items:center;font-size:13px}
+  .pay-bars .row{display:grid;grid-template-columns:96px 1fr 150px;gap:10px;align-items:center;font-size:13px}
   .pay-bars .track{height:13px;border-radius:7px;background:rgba(120,190,255,.08);overflow:hidden}
   .pay-bars .fill{height:100%;border-radius:7px}
   .pay-bars .fill.pix{background:linear-gradient(90deg,#1f9e8a,var(--pix))}
   .pay-bars .fill.din{background:linear-gradient(90deg,#4fae5e,var(--din))}
   .pay-bars .fill.car{background:linear-gradient(90deg,var(--cyan-deep),var(--car))}
   .pay-bars .fill.col{background:linear-gradient(90deg,#7a52c7,var(--col))}
-  .pay-bars .val{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
+  .pay-bars .val{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;white-space:nowrap}
 
   /* day form table with per-sale stacks */
   .formwrap{overflow-x:auto;border:1px solid var(--stroke-soft);border-radius:12px;margin-bottom:14px}
@@ -917,6 +918,9 @@ function fmtShort(n){if(!n)return "—";return Math.abs(n)>=1000?(n/1000).toLoca
 function parseNum(s){if(s==null)return 0;s=String(s).trim().replace(/\s|R\$/g,"");if(!s)return 0;if(s.includes(","))s=s.replace(/\./g,"").replace(",",".");const n=parseFloat(s);return isNaN(n)?0:n;}
 function money(n){return n.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});}
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));}
+function pctNum(part,whole){return whole>0?(part/whole*100):0;}
+function pctStr(part,whole){const p=pctNum(part,whole);return (p>0&&p<1?p.toFixed(1):Math.round(p))+"%";}
+function pctTag(part,whole){return ` <span class="pctval">(${pctStr(part,whole)})</span>`;}
 function show(id){document.getElementById(id).classList.add("open");document.body.style.overflow="hidden";}
 function hide(id){document.getElementById(id).classList.remove("open");if(!document.querySelector(".overlay.open"))document.body.style.overflow="";}
 
@@ -954,13 +958,13 @@ function render(){
   let rec=0,col=0,pixY=0,dinY=0,carY=0,best=-1,bestM=null;const monthly=[];
   for(let m=0;m<12;m++){const t=monthTotals(year,m);rec+=t.geral;col+=t.col;pixY+=t.pix;dinY+=t.din;carY+=t.car;monthly.push(t.geral);if(monthHasData(year,m)&&t.geral>best){best=t.geral;bestM=m;}}
   document.getElementById("aRec").textContent=fmt(rec);
-  document.getElementById("aCol").textContent=fmt(col);
+  document.getElementById("aCol").innerHTML=fmt(col)+pctTag(col,rec);
   const yrCad=cadastroCount(collectSales(year,[0,1,2,3,4,5,6,7,8,9,10,11]));
   document.getElementById("aCadAno").innerHTML=`<b>${yrCad.toLocaleString("pt-BR")}</b> <span class="cadu">CADASTRO${yrCad===1?"":"S"}</span>`;
   document.getElementById("aTicket").innerHTML=ticketHTML(rec,daysFilled(year,[0,1,2,3,4,5,6,7,8,9,10,11]));
-  document.getElementById("aPix").textContent=fmt(pixY);
-  document.getElementById("aDin").textContent=fmt(dinY);
-  document.getElementById("aCar").textContent=fmt(carY);
+  document.getElementById("aPix").innerHTML=fmt(pixY)+pctTag(pixY,rec);
+  document.getElementById("aDin").innerHTML=fmt(dinY)+pctTag(dinY,rec);
+  document.getElementById("aCar").innerHTML=fmt(carY)+pctTag(carY,rec);
   document.getElementById("aBest").textContent=bestM!==null?`${MESES[bestM]} · ${fmt(best)}`:"—";
   document.getElementById("annSpark").innerHTML=sparkPath(monthly);
   attachAnnTip();
@@ -980,11 +984,12 @@ function render(){
     document.getElementById("aBigSub").innerHTML=`( ${descTxt}${tabTxt} )<br>DIA: ${dd}/${mm}/${year}`;
   }else{document.getElementById("aBigSale").textContent="—";document.getElementById("aBigSub").innerHTML="";}
   const yrCadByAtt=attCadCount(collectSales(year,[0,1,2,3,4,5,6,7,8,9,10,11]));
-  document.getElementById("aTopCad").textContent=yrCadByAtt.length?`${yrCadByAtt[0].nm} · ${yrCadByAtt[0].qtd} cadastro${yrCadByAtt[0].qtd===1?"":"s"}`:"—";
+  const totCadAtt=yrCadByAtt.reduce((s,a)=>s+a.qtd,0);
+  document.getElementById("aTopCad").innerHTML=yrCadByAtt.length?`${esc(yrCadByAtt[0].nm)} · ${yrCadByAtt[0].qtd} cadastro${yrCadByAtt[0].qtd===1?"":"s"}<span class="pctval">(${pctStr(yrCadByAtt[0].qtd,totCadAtt)})</span>`:"—";
   const ar=document.getElementById("annRank");
   if(!yr.length)ar.innerHTML=`<div style="text-align:center;color:rgba(255,255,255,.6);font-size:13px;padding:8px">Sem lançamentos ainda.</div>`;
-  else{const mx=yr[0].v;ar.innerHTML=yr.map((a,i)=>`<div class="row"><span class="nm"><span class="rk">${i+1}º</span>${esc(a.nm)}</span>
-    <div class="track"><div class="fill" style="width:${(a.v/mx*100).toFixed(1)}%"></div></div><span class="val">${fmt(a.v)}</span></div>`).join("");}
+  else{const mx=yr[0].v,tot=yr.reduce((s,a)=>s+a.v,0);ar.innerHTML=yr.map((a,i)=>`<div class="row"><span class="nm"><span class="rk">${i+1}º</span>${esc(a.nm)}</span>
+    <div class="track"><div class="fill" style="width:${(a.v/mx*100).toFixed(1)}%"></div></div><span class="val">${fmt(a.v)}<span class="pctval">(${pctStr(a.v,tot)})</span></span></div>`).join("");}
 }
 function spark(vals){const w=120,h=42,pad=4,mx=Math.max(...vals,1);
   const pts=vals.map((v,i)=>[pad+i*(w-2*pad)/(vals.length-1||1),h-pad-(v/mx)*(h-2*pad)]);
@@ -1040,10 +1045,10 @@ function renderMonth(){
   const m=openM,t=monthTotals(year,m);
   document.getElementById("cmGer").textContent=fmt(t.geral);
   document.getElementById("cmTicket").innerHTML=ticketHTML(t.geral,daysFilled(year,[m]));
-  document.getElementById("cmPix").textContent=fmt(t.pix);
-  document.getElementById("cmDin").textContent=fmt(t.din);
-  document.getElementById("cmCar").textContent=fmt(t.car);
-  document.getElementById("cmCol").textContent=fmt(t.col);
+  document.getElementById("cmPix").innerHTML=fmt(t.pix)+pctTag(t.pix,t.geral);
+  document.getElementById("cmDin").innerHTML=fmt(t.din)+pctTag(t.din,t.geral);
+  document.getElementById("cmCar").innerHTML=fmt(t.car)+pctTag(t.car,t.geral);
+  document.getElementById("cmCol").innerHTML=fmt(t.col)+pctTag(t.col,t.geral);
   document.getElementById("cmDesc").textContent=fmt(periodDesc(year,[m]));
   document.getElementById("cmCad").textContent=cadastroCount(collectSales(year,[m])).toLocaleString("pt-BR");
   document.getElementById("monthCadRank").innerHTML=cadRankHTML(collectSales(year,[m]));
@@ -1061,10 +1066,10 @@ function renderMonth(){
   attachDayTip();
   const atts=monthAttendants(year,m),rm=document.getElementById("rankMonth");
   if(!atts.length)rm.innerHTML=`<div class="empty">Sem lançamentos ainda.</div>`;
-  else{const mx=atts[0].v;rm.innerHTML=atts.map((a,i)=>`<div class="row"><span class="nm"><span class="rk">${i+1}º</span>${esc(a.nm)}</span>
-    <div class="track"><div class="fill" style="width:${(a.v/mx*100).toFixed(1)}%"></div></div><span class="val">${fmt(a.v)}</span></div>`).join("");}
+  else{const mx=atts[0].v,tot=atts.reduce((s,a)=>s+a.v,0);rm.innerHTML=atts.map((a,i)=>`<div class="row"><span class="nm"><span class="rk">${i+1}º</span>${esc(a.nm)}</span>
+    <div class="track"><div class="fill" style="width:${(a.v/mx*100).toFixed(1)}%"></div></div><span class="val">${fmt(a.v)}<span class="pctval">(${pctStr(a.v,tot)})</span></span></div>`).join("");}
   const pm=document.getElementById("payMonth"),pays=[["Pix",t.pix,"pix"],["Dinheiro",t.din,"din"],["Cartão",t.car,"car"],["Coleta Ext.",t.col,"col"]],pmx=Math.max(...pays.map(p=>p[1]),1);
-  pm.innerHTML=pays.map(p=>`<div class="row"><span>${p[0]}</span><div class="track"><div class="fill ${p[2]}" style="width:${(p[1]/pmx*100).toFixed(1)}%"></div></div><span class="val">${fmt(p[1])}</span></div>`).join("");
+  pm.innerHTML=pays.map(p=>`<div class="row"><span>${p[0]}</span><div class="track"><div class="fill ${p[2]}" style="width:${(p[1]/pmx*100).toFixed(1)}%"></div></div><span class="val">${fmt(p[1])}<span class="pctval">(${pctStr(p[1],t.geral)})</span></span></div>`).join("");
   renderParticular("pmonRank","pmonAtt","pmonFoot",collectSales(year,[m]),atts.map(a=>a.nm));
 }
 function dailyBars(vals){
@@ -1354,12 +1359,13 @@ function commitDay(){
 function updateDayUI(){
   let pix=0,din=0,car=0,col=0;
   dayModel.forEach(e=>{pix+=S(e.pix);din+=S(e.dinheiro);car+=S(e.cartao);col+=S(e.coleta);});
-  document.getElementById("fPix").textContent=fmt(pix);
-  document.getElementById("fDin").textContent=fmt(din);
-  document.getElementById("fCar").textContent=fmt(car);
-  document.getElementById("fCol").textContent=fmt(col);
-  document.getElementById("fGer").textContent=fmt(pix+din+car);
-  document.getElementById("dhGer").textContent=fmt(pix+din+car);
+  const dger=pix+din+car;
+  document.getElementById("fPix").innerHTML=fmt(pix)+pctTag(pix,dger);
+  document.getElementById("fDin").innerHTML=fmt(din)+pctTag(din,dger);
+  document.getElementById("fCar").innerHTML=fmt(car)+pctTag(car,dger);
+  document.getElementById("fCol").innerHTML=fmt(col)+pctTag(col,dger);
+  document.getElementById("fGer").textContent=fmt(dger);
+  document.getElementById("dhGer").textContent=fmt(dger);
   document.getElementById("dhCol").textContent=fmt(col);
   let desc=0;dayModel.forEach(e=>{desc+=entDesc(e);});
   document.getElementById("dhDesc").textContent=fmt(desc);
@@ -1371,8 +1377,8 @@ function updateDayUI(){
   // ranking list
   const rk=document.getElementById("rankDay");
   if(!items.length)rk.innerHTML=`<div class="empty">Preencha os valores para ver o ranking.</div>`;
-  else{const mx=items[0].v;rk.innerHTML=items.map((a,i)=>`<div class="row"><span class="nm"><span class="rk">${i+1}º</span>${esc(a.nm)}</span>
-    <div class="track"><div class="fill" style="width:${(a.v/mx*100).toFixed(1)}%"></div></div><span class="val">${fmt(a.v)}</span></div>`).join("");}
+  else{const mx=items[0].v,tot=items.reduce((s,a)=>s+a.v,0);rk.innerHTML=items.map((a,i)=>`<div class="row"><span class="nm"><span class="rk">${i+1}º</span>${esc(a.nm)}</span>
+    <div class="track"><div class="fill" style="width:${(a.v/mx*100).toFixed(1)}%"></div></div><span class="val">${fmt(a.v)}<span class="pctval">(${pctStr(a.v,tot)})</span></span></div>`).join("");}
   // pie
   const pie=document.getElementById("dayPie"),leg=document.getElementById("dayPieLeg");
   if(!items.length){pie.innerHTML=`<div class="empty" style="width:150px">—</div>`;leg.innerHTML="";}
@@ -1471,8 +1477,8 @@ function attCadCount(sales){
 function cadRankHTML(sales){
   const arr=attCadCount(sales);
   if(!arr.length)return `<div class="empty">Nenhum cadastro particular ainda.</div>`;
-  const mx=arr[0].qtd;
-  return arr.map((a,i)=>`<div class="row"><span class="nm"><span class="rk">${i+1}º</span>${esc(a.nm)}</span><div class="track"><div class="fill" style="width:${(a.qtd/mx*100).toFixed(1)}%"></div></div><span class="val">${a.qtd}</span></div>`).join("");
+  const mx=arr[0].qtd,tot=arr.reduce((s,a)=>s+a.qtd,0);
+  return arr.map((a,i)=>`<div class="row"><span class="nm"><span class="rk">${i+1}º</span>${esc(a.nm)}</span><div class="track"><div class="fill" style="width:${(a.qtd/mx*100).toFixed(1)}%"></div></div><span class="val">${a.qtd}<span class="pctval">(${pctStr(a.qtd,tot)})</span></span></div>`).join("");
 }
 function renderParticular(rankId,attId,footId,sales,attOrder){
   const r=fonteRankHTML(sales);
@@ -1495,20 +1501,21 @@ function openPeriod(title,months){
   document.getElementById("pTitle").textContent=title;
   let pix=0,din=0,car=0,col=0;
   const rows=months.map(m=>{const t=monthTotals(year,m);pix+=t.pix;din+=t.din;car+=t.car;col+=t.col;return {m,t};});
-  document.getElementById("cpGer").textContent=fmt(pix+din+car);
-  document.getElementById("cpTicket").innerHTML=ticketHTML(pix+din+car,daysFilled(year,months));
-  document.getElementById("cpPix").textContent=fmt(pix);
-  document.getElementById("cpDin").textContent=fmt(din);
-  document.getElementById("cpCar").textContent=fmt(car);
-  document.getElementById("cpCol").textContent=fmt(col);
+  const cpger=pix+din+car;
+  document.getElementById("cpGer").textContent=fmt(cpger);
+  document.getElementById("cpTicket").innerHTML=ticketHTML(cpger,daysFilled(year,months));
+  document.getElementById("cpPix").innerHTML=fmt(pix)+pctTag(pix,cpger);
+  document.getElementById("cpDin").innerHTML=fmt(din)+pctTag(din,cpger);
+  document.getElementById("cpCar").innerHTML=fmt(car)+pctTag(car,cpger);
+  document.getElementById("cpCol").innerHTML=fmt(col)+pctTag(col,cpger);
   document.getElementById("cpDesc").textContent=fmt(periodDesc(year,months));
   document.getElementById("cpCad").textContent=cadastroCount(collectSales(year,months)).toLocaleString("pt-BR");
   document.getElementById("pCadRank").innerHTML=cadRankHTML(collectSales(year,months));
   // ranking de quem mais vendeu no período
   const pa=periodAttendants(year,months,null),pr=document.getElementById("pRank");
   if(!pa.length)pr.innerHTML=`<div class="empty">Sem lançamentos no período.</div>`;
-  else{const mx=pa[0].v;pr.innerHTML=pa.map((a,i)=>`<div class="row"><span class="nm"><span class="rk">${i+1}º</span>${esc(a.nm)}</span>
-    <div class="track"><div class="fill" style="width:${(a.v/mx*100).toFixed(1)}%"></div></div><span class="val">${fmt(a.v)}</span></div>`).join("");}
+  else{const mx=pa[0].v,tot=pa.reduce((s,a)=>s+a.v,0);pr.innerHTML=pa.map((a,i)=>`<div class="row"><span class="nm"><span class="rk">${i+1}º</span>${esc(a.nm)}</span>
+    <div class="track"><div class="fill" style="width:${(a.v/mx*100).toFixed(1)}%"></div></div><span class="val">${fmt(a.v)}<span class="pctval">(${pctStr(a.v,tot)})</span></span></div>`).join("");}
   // por forma de pagamento
   miniRank("pCar",periodAttendants(year,months,"cartao"),"car");
   miniRank("pPix",periodAttendants(year,months,"pix"),"pix");
