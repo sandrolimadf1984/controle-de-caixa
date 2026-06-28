@@ -1,0 +1,14 @@
+{
+  "FixedFileInfo": {
+    "FileVersion": {"Major":1,"Minor":0,"Patch":0,"Build":0},
+    "ProductVersion": {"Major":1,"Minor":0,"Patch":0,"Build":0}
+  },
+  "StringFileInfo": {
+    "CompanyName": "Controle de Caixa",
+    "FileDescription": "Controle de Caixa Inteligente",
+    "ProductName": "Controle de Caixa Inteligente",
+    "OriginalFilename": "ControleDeCaixa.exe",
+    "LegalCopyright": ""
+  },
+  "IconPath": "app.ico"
+}

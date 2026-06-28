@@ -1,0 +1,61 @@
+====================================================================
+TEXTO CURTO "SOBRE O PROJETO" — para fixar no GitHub, LinkedIn, CV
+====================================================================
+
+------------------------------------------------------------
+PORTUGUÊS — versão 1 linha (bio / topo do perfil)
+------------------------------------------------------------
+Sistema de controle de caixa (web + executável Windows) que criei para
+substituir uma planilha de fechamento em uma rede de laboratórios.
+
+------------------------------------------------------------
+PORTUGUÊS — versão curta (LinkedIn / "sobre" do repositório)
+------------------------------------------------------------
+Desenvolvi um sistema de controle de caixa, do zero, para tirar uma rede
+de laboratórios do Excel. É um app em um único arquivo (HTML, CSS e
+JavaScript, sem frameworks) que roda no navegador e também como programa
+de Windows — empacotado com um launcher em Go, salvando os dados em
+arquivo ao lado do executável, o que o torna portátil em pen drive e
+usável em pasta de rede. Inclui lançamento por atendente e forma de
+pagamento, controle de tabelas/convênios particulares, descontos,
+pagamentos combinados e relatórios/rankings por dia, mês, trimestre,
+semestre e ano, com gráficos interativos.
+
+------------------------------------------------------------
+ENGLISH — one-liner (bio / profile headline)
+------------------------------------------------------------
+Cash-register control system (web + Windows executable) I built to
+replace a closing spreadsheet for a network of laboratory units.
+
+------------------------------------------------------------
+ENGLISH — short version (LinkedIn / repo "about")
+------------------------------------------------------------
+I built a cash-register control system from scratch to move a network of
+laboratory units off Excel. It's a single-file app (HTML, CSS and
+JavaScript, no frameworks) that runs in the browser and also as a Windows
+program — packaged with a Go launcher that stores data in a file next to
+the executable, making it portable on a USB stick and usable from a shared
+network folder. It includes entry per attendant and payment method,
+private insurance/table tracking, discounts, split payments, and
+reports/rankings by day, month, quarter, semester and year, with
+interactive charts.
+
+------------------------------------------------------------
+T�PICOS PARA O CURRÍCULO (copie e cole)
+------------------------------------------------------------
+• Desenvolvi, do levantamento de requisitos à entrega, um sistema de
+  controle de caixa para uma rede de laboratórios, distribuído como app
+  web e executável Windows portátil.
+• Construí a interface e a lógica em HTML, CSS e JavaScript puro (sem
+  frameworks), com dashboard, gráficos em SVG e relatórios/rankings por
+  período.
+• Empacotei como executável usando Go (servidor local em localhost,
+  compilação cruzada Linux->Windows, ícone embutido) com persistência em
+  arquivo JSON, tornando o programa portátil em pen drive e compartilhável
+  em rede.
+• Implementei controle de tabelas/convênios particulares, descontos,
+  pagamentos combinados e salvamento confiável (automático + manual com
+  confirmação).
+
+Tecnologias: JavaScript, HTML, CSS, Go, SVG, JSON, Git/GitHub.
+====================================================================
