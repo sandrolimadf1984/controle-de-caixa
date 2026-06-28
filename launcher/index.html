@@ -74,6 +74,7 @@
   .sale .fbtn{background:none;border:none;cursor:pointer;font-size:12px;line-height:1;padding:0 1px;margin-left:1px}
   .sale .fbtn.add{color:#ff6b7a;font-weight:900;font-size:14px}
   .sale .fbtn.ok{color:#46e0a0}
+  .sale .ddot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#ff9d2e;box-shadow:0 0 5px rgba(255,157,46,.8);margin-left:3px;vertical-align:middle}
   .fpop{position:fixed;z-index:70;display:none;background:rgba(10,24,38,.99);border:1px solid var(--stroke);border-radius:12px;padding:12px;box-shadow:0 16px 40px rgba(0,0,0,.6);width:300px}
   .fpop h5{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#46e0a0;margin-bottom:8px;font-weight:700}
   .fpop input{width:100%;background:rgba(8,20,32,.7);border:1px solid var(--stroke-soft);border-radius:9px;color:var(--ink);padding:9px 11px;font-size:13.5px;font-family:inherit;outline:none;margin-bottom:8px}
@@ -1231,8 +1232,9 @@ function stackHTML(e,k){
     const fbtn=f
       ? `<button class="fbtn ok" data-k="${k}" data-j="${j}" title="Fonte: ${esc(f)}${dc?(' · desconto '+fmt(dc)):''} — clique para editar">✔</button>`
       : `<button class="fbtn add" data-k="${k}" data-j="${j}" title="Incluir fonte pagadora particular">∨</button>`;
+    const ddot=dc>0?`<span class="ddot" title="Desconto aplicado: ${fmt(dc)}"></span>`:"";
     const gmark=g?`<span class="gmark" title="Pagamento combinado · total da venda ${fmt(gtot[g]||0)}${gfonte[g]?(' · tabela '+esc(gfonte[g])):''}">🔗</span>`:"";
-    return `<span class="sale${g?' combo':''}">${gmark}${money(saleVal(s))}${fbtn}<button class="rmv" data-k="${k}" data-j="${j}" title="Remover venda">×</button></span>`;
+    return `<span class="sale${g?' combo':''}">${gmark}${money(saleVal(s))}${fbtn}${ddot}<button class="rmv" data-k="${k}" data-j="${j}" title="Remover venda">×</button></span>`;
   }).join("");
   const sub=S(list);
   const foot=list.length?`<div class="cellfoot"><b>${list.length}×</b> · ${fmt(sub)}</div>`:`<div class="cellfoot"></div>`;
