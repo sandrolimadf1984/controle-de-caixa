@@ -20,10 +20,12 @@ var indexHTML string
 var iconPNG []byte
 
 var (
-	mu       sync.Mutex
-	dataPath string
-	lastPing = time.Now()
-	started  = time.Now()
+	mu        sync.Mutex
+	dataPath  string
+	active    int       // janelas abertas conectadas
+	zeroSince = time.Now()
+	lastReq   = time.Now()
+	started   = time.Now()
 )
 
 func readData() string {
@@ -34,19 +36,31 @@ func readData() string {
 	return string(b)
 }
 
+// Gravação durável: escreve no .tmp, faz fsync (garante que foi pro disco) e troca atomicamente.
 func writeData(s string) {
 	mu.Lock()
 	defer mu.Unlock()
 	tmp := dataPath + ".tmp"
-	if err := os.WriteFile(tmp, []byte(s), 0644); err == nil {
-		os.Remove(dataPath)
-		os.Rename(tmp, dataPath)
-	} else {
-		os.WriteFile(dataPath, []byte(s), 0644)
+	f, err := os.OpenFile(tmp, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0644)
+	if err == nil {
+		_, werr := f.Write([]byte(s))
+		f.Sync()
+		f.Close()
+		if werr == nil {
+			os.Remove(dataPath)
+			if rerr := os.Rename(tmp, dataPath); rerr == nil {
+				// também faz uma cópia de segurança simples
+				os.WriteFile(dataPath+".bak", []byte(s), 0644)
+				return
+			}
+		}
 	}
+	// fallback direto
+	os.WriteFile(dataPath, []byte(s), 0644)
+	os.WriteFile(dataPath+".bak", []byte(s), 0644)
 }
 
-func touch() { mu.Lock(); lastPing = time.Now(); mu.Unlock() }
+func touch() { mu.Lock(); lastReq = time.Now(); mu.Unlock() }
 
 func main() {
 	exe, err := os.Executable()
@@ -57,7 +71,9 @@ func main() {
 	dataPath = filepath.Join(dir, "ControleDeCaixa-dados.json")
 
 	addr := "127.0.0.1:0"
-	if p := os.Getenv("CAIXA_PORT"); p != "" { addr = "127.0.0.1:" + p }
+	if p := os.Getenv("CAIXA_PORT"); p != "" {
+		addr = "127.0.0.1:" + p
+	}
 	ln, err := net.Listen("tcp", addr)
 	if err != nil {
 		os.WriteFile(filepath.Join(dir, "erro-controle-caixa.txt"),
@@ -73,6 +89,7 @@ func main() {
 			http.NotFound(w, r)
 			return
 		}
+		touch()
 		data := readData()
 		inject := "<script>window.__DADOS__=" + data +
 			";window.__DADOS_AT__=" + fmt.Sprintf("%d", time.Now().UnixMilli()) +
@@ -87,7 +104,9 @@ func main() {
 		w.Write(iconPNG)
 	})
 	mux.HandleFunc("/load", func(w http.ResponseWriter, r *http.Request) {
+		touch()
 		w.Header().Set("Content-Type", "application/json")
+		w.Header().Set("Cache-Control", "no-store")
 		fmt.Fprint(w, readData())
 	})
 	mux.HandleFunc("/save", func(w http.ResponseWriter, r *http.Request) {
@@ -106,11 +125,38 @@ func main() {
 		if len(b) > 0 {
 			writeData(string(b))
 		}
+		w.Header().Set("Cache-Control", "no-store")
+		w.WriteHeader(200)
+		fmt.Fprint(w, "ok")
+	})
+	// Uma janela conectou.
+	mux.HandleFunc("/hello", func(w http.ResponseWriter, r *http.Request) {
+		mu.Lock()
+		active++
+		lastReq = time.Now()
+		mu.Unlock()
+		w.Header().Set("Cache-Control", "no-store")
+		w.WriteHeader(200)
+		fmt.Fprint(w, "ok")
+	})
+	// Uma janela foi fechada (enviado no pagehide).
+	mux.HandleFunc("/bye", func(w http.ResponseWriter, r *http.Request) {
+		mu.Lock()
+		if active > 0 {
+			active--
+		}
+		if active <= 0 {
+			zeroSince = time.Now()
+		}
+		lastReq = time.Now()
+		mu.Unlock()
+		w.Header().Set("Cache-Control", "no-store")
 		w.WriteHeader(200)
 		fmt.Fprint(w, "ok")
 	})
 	mux.HandleFunc("/ping", func(w http.ResponseWriter, r *http.Request) {
 		touch()
+		w.Header().Set("Cache-Control", "no-store")
 		w.WriteHeader(200)
 		fmt.Fprint(w, "ok")
 	})
@@ -120,17 +166,27 @@ func main() {
 	})
 
 	go http.Serve(ln, mux)
-
 	go openApp(url)
 
-	// Auto-quit shortly after the window is closed (no pings).
+	// Encerramento: só quando a janela é realmente fechada (contagem de conexões),
+	// nunca durante o uso (minimizar/trocar de janela/suspender não desligam).
 	for {
-		time.Sleep(4 * time.Second)
+		time.Sleep(3 * time.Second)
 		mu.Lock()
-		idle := time.Since(lastPing)
+		a := active
+		zs := zeroSince
+		lr := lastReq
 		up := time.Since(started)
 		mu.Unlock()
-		if up > 20*time.Second && idle > 12*time.Second {
+		if up < 15*time.Second {
+			continue // tempo de carregar a primeira janela
+		}
+		// Janela fechada (sem conexões ativas) por mais de 6s -> encerra.
+		if a <= 0 && time.Since(zs) > 6*time.Second {
+			os.Exit(0)
+		}
+		// Rede de segurança: processo abandonado (sem nenhuma requisição) por 6h.
+		if time.Since(lr) > 6*time.Hour {
 			os.Exit(0)
 		}
 	}
@@ -155,6 +211,5 @@ func openApp(url string) {
 			}
 		}
 	}
-	// Fallback: default browser (normal tab).
 	exec.Command("rundll32", "url.dll,FileProtocolHandler", url).Start()
 }

@@ -548,7 +548,7 @@
   <div class="ppair" style="margin-top:16px">
     <div class="ppanel"><h4>Tabelas particulares + usadas no mês</h4>
       <div class="prank" id="pmonRank"></div>
-      <div class="pfoot">Total de tabelas usadas <b id="pmonFoot">0</b></div>
+      <div class="pfoot">Total de tabelas utilizadas no mês <b id="pmonFoot">0</b></div>
     </div>
     <div class="ppanel"><h4>Tabela + usada pelos atendentes</h4>
       <div class="patt" id="pmonAtt"></div>
@@ -602,7 +602,7 @@
   <div class="ppair" style="margin-top:16px">
     <div class="ppanel"><h4 id="pdayTitle">Tabelas particulares + usadas no dia</h4>
       <div class="prank" id="pdayRank"></div>
-      <div class="pfoot">Total de tabelas usadas <b id="pdayFoot">0</b></div>
+      <div class="pfoot">Total de tabelas utilizadas no dia <b id="pdayFoot">0</b></div>
     </div>
     <div class="ppanel"><h4>Tabela + usada pelos atendentes</h4>
       <div class="patt" id="pdayAtt"></div>
@@ -635,7 +635,7 @@
   <div class="ppair" style="margin-top:16px">
     <div class="ppanel"><h4>Tabelas particulares + usadas no período</h4>
       <div class="prank" id="pperRank"></div>
-      <div class="pfoot">Total de tabelas usadas <b id="pperFoot">0</b></div>
+      <div class="pfoot">Total de tabelas utilizadas no período <b id="pperFoot">0</b></div>
     </div>
     <div class="ppanel"><h4>Tabela + usada pelos atendentes</h4>
       <div class="patt" id="pperAtt"></div>
@@ -768,19 +768,32 @@ function flashSaveBtn(txt,ok){
   b.textContent=txt;
   if(ok!==null){clearTimeout(b._t);b._t=setTimeout(()=>{b.classList.remove("ok","err");b.textContent="💾 Salvar";},2200);}
 }
+function appBeaconSave(){ if(!APPMODE)return false; try{return navigator.sendBeacon("/save",new Blob([JSON.stringify(state)],{type:"application/json"}));}catch(e){return false;} }
 async function saveNow(){
-  // garante que o estado mais recente vá pro disco, com confirmação na tela
+  // garante que o estado mais recente vá pro disco, com confirmação REAL
   save(state); // localStorage (imediato) sempre
   if(APPMODE){
     flashSaveBtn("Salvando…",null);
     const body=JSON.stringify(state);
-    try{
-      const r=await fetch("/save",{method:"POST",headers:{"Content-Type":"application/json"},body});
-      if(r&&r.ok){flashSaveBtn("✅ Salvo!",true);return;}
-      throw new Error("falha");
-    }catch(e){
-      try{const okb=navigator.sendBeacon("/save",new Blob([body],{type:"application/json"}));flashSaveBtn(okb?"✅ Salvo!":"⚠️ Tente de novo",okb?true:false);}
-      catch(_){flashSaveBtn("⚠️ Tente de novo",false);}
+    let okSaved=false;
+    for(let attempt=0;attempt<3 && !okSaved;attempt++){
+      try{
+        const r=await fetch("/save",{method:"POST",headers:{"Content-Type":"application/json"},body,cache:"no-store"});
+        if(r&&r.ok){
+          // confirma que realmente gravou no arquivo
+          try{
+            const v=await fetch("/load",{cache:"no-store"});
+            const vt=await v.text();
+            if(vt===body){okSaved=true;break;}
+          }catch(_){ okSaved=true; break; } // se /load falhar mas /save deu ok, considera salvo
+          okSaved=true; break;
+        }
+      }catch(e){ await new Promise(res=>setTimeout(res,300)); }
+    }
+    if(okSaved){flashSaveBtn("✅ Salvo!",true);}
+    else{
+      const okb=appBeaconSave();
+      flashSaveBtn(okb?"Salvo (confirme reabrindo)":"⚠️ NÃO salvou — clique de novo",false);
     }
     return;
   }
@@ -1568,14 +1581,14 @@ function cadRankHTML(sales){
 function renderParticular(rankId,attId,footId,sales,attOrder){
   const r=fonteRankHTML(sales);
   const re=document.getElementById(rankId);if(re)re.innerHTML=r.html;
-  const fe=document.getElementById(footId);if(fe)fe.textContent=r.total;
+  const fe=document.getElementById(footId);if(fe)fe.textContent=r.distinct;
   const ae=document.getElementById(attId);if(ae)ae.innerHTML=attFonteHTML(sales,attOrder);
 }
 function particularPanelsHTML(prefix,titleSuffix){
   return `<div class="ppair" style="margin-top:16px">
     <div class="ppanel"><h4>Tabelas particulares + usadas${titleSuffix||""}</h4>
       <div class="prank" id="${prefix}Rank"></div>
-      <div class="pfoot">Total de tabelas usadas <b id="${prefix}Foot">0</b></div>
+      <div class="pfoot">Total de tabelas utilizadas <b id="${prefix}Foot">0</b></div>
     </div>
     <div class="ppanel"><h4>Tabela + usada pelos atendentes</h4>
       <div class="patt" id="${prefix}Att"></div>
@@ -1681,7 +1694,8 @@ function reloadFromNetwork(){
 /* ===== events ===== */
 document.getElementById("menuBtn").onclick=()=>{renderAtendList();renderFonteList();show("ovMenu");};
 document.getElementById("saveBtn").onclick=saveNow;
-window.addEventListener("beforeunload",()=>{try{save(state);}catch(e){}if(APPMODE){try{navigator.sendBeacon("/save",new Blob([JSON.stringify(state)],{type:"application/json"}));}catch(e){}}});
+window.addEventListener("beforeunload",()=>{try{save(state);}catch(e){}appBeaconSave();});
+window.addEventListener("pagehide",()=>{appBeaconSave();if(APPMODE){try{navigator.sendBeacon("/bye",new Blob([""],{type:"text/plain"}));}catch(e){}}});
 document.getElementById("partBtn").onclick=openParticular;
 document.getElementById("cadAdd").onclick=()=>{const i=document.getElementById("cadInput");addAtend(i.value);i.value="";i.focus();};
 document.getElementById("cadInput").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();const i=document.getElementById("cadInput");addAtend(i.value);i.value="";}});
@@ -1729,7 +1743,14 @@ if(NET){
 if(APPMODE){
   const ns=document.getElementById("netSection");if(ns)ns.style.display="none";
   const fb=document.getElementById("netFab");if(fb)fb.style.display="none";
-  setInterval(()=>{try{fetch("/ping");}catch(e){}},3000);
+  const pingNow=()=>{try{fetch("/ping",{cache:"no-store"});}catch(e){}};
+  try{fetch("/hello",{cache:"no-store"});}catch(e){}
+  setInterval(pingNow,3000);
+  window.addEventListener("focus",pingNow);
+  document.addEventListener("visibilitychange",()=>{
+    if(document.visibilityState==="visible"){pingNow();}
+    else{appBeaconSave();} // salva ao minimizar/trocar de janela
+  });
 }
 document.getElementById("prevYear").onclick=()=>{year--;render();};
 document.getElementById("nextYear").onclick=()=>{year++;render();};
