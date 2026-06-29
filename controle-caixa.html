@@ -648,14 +648,14 @@
   <div class="shead"><div class="htitle"><span class="ico">📊</span><h3 id="partTitle">Vendas particulares</h3></div><button class="xbtn" data-close>✕</button></div>
   <div class="chips" style="grid-template-columns:repeat(3,1fr)">
     <div class="chip"><div class="k">Desconto total no ano</div><div class="v" id="partDesc" style="color:#ff5c5c">R$ 0,00</div></div>
-    <div class="chip geral" style="border-color:rgba(70,224,160,.4)"><div class="k">Tabelas usadas (ano)</div><div class="v" id="partTotal" style="color:#46e0a0">0</div></div>
+    <div class="chip geral" style="border-color:rgba(70,224,160,.4)"><div class="k">Total Venda Particular Geral</div><div class="v" id="partTotal" style="color:#46e0a0">0</div></div>
     <div class="chip"><div class="k">02-Particular Pgto sem desconto</div><div class="v" id="partTab02" style="color:var(--sky)">0</div></div>
   </div>
   <div class="panel"><h4>Quem mais fez cadastros particulares no ano (qtd)</h4><div class="bar-h" id="pyearCadRank" style="max-height:360px;overflow-y:auto;padding-right:4px"></div></div>
   <div class="ppair">
     <div class="ppanel"><h4>Ranking de tabelas particulares no ano (+ usadas)</h4>
       <div class="prank" id="pyearRank" style="max-height:420px"></div>
-      <div class="pfoot">Total de tabelas usadas <b id="pyearFoot">0</b></div>
+      <div class="pfoot">Total de Tabelas Utilizadas no Ano <b id="pyearFoot">0</b></div>
     </div>
     <div class="ppanel"><h4>Por atendente (+ vendeu) — tabela que mais usou</h4>
       <div class="patt" id="pyearAtt" style="max-height:420px;overflow-y:auto;padding-right:4px"></div>
@@ -1116,6 +1116,7 @@ function openParticular(){
   document.getElementById("partTab02").innerHTML=`${t02}<span class="pctval">(${pctStr(t02,r.total)})</span>`;
   document.getElementById("partDesc").textContent=fmt(sales.reduce((a,s)=>a+(s.d||0),0));
   renderParticular("pyearRank","pyearAtt","pyearFoot",sales,annualAttendants(year).map(a=>a.nm));
+  document.getElementById("pyearFoot").textContent=r.distinct;
   document.getElementById("pyearCadRank").innerHTML=cadRankHTML(sales);
   show("ovParticular");
 }
@@ -1536,10 +1537,10 @@ function fonteRankHTML(sales){
   const uses=tableUses(sales);const map={};let total=0;
   uses.forEach(u=>{map[u.f]=(map[u.f]||0)+1;total++;});
   const arr=Object.entries(map).map(([f,c])=>({f,c})).sort((a,b)=>b.c-a.c||a.f.localeCompare(b.f,"pt-BR",{numeric:true}));
-  if(!arr.length)return {html:`<div class="empty">Nenhuma tabela particular usada.</div>`,total:0};
+  if(!arr.length)return {html:`<div class="empty">Nenhuma tabela particular usada.</div>`,total:0,distinct:0};
   const mx=arr[0].c;
   const html=arr.map((it,i)=>`<div class="prow"><span class="pk">${i+1}º</span><span class="pname" title="${esc(it.f)}">${esc(it.f)}</span><div class="ptrack"><div class="pfill" style="width:${(it.c/mx*100).toFixed(1)}%"></div></div><span class="pqtd">${it.c}<span class="ppct">(${(it.c/total*100).toFixed(0)}%)</span></span></div>`).join("");
-  return {html,total};
+  return {html,total,distinct:arr.length};
 }
 function attFonteHTML(sales,attOrder){
   const uses=tableUses(sales);const byA={};
