@@ -9,7 +9,11 @@ um pen drive.
 Acabou virando um app só, em um arquivo, que roda no navegador **e** como programa de
 Windows (`.exe`), com os dados salvos num arquivo ao lado do executável.
 
-> Os dados que vêm no projeto são **fictícios**, só para demonstração.
+## Por que eu fiz
+
+O acompanhamento de resultado era feito na mão: alguém abria a planilha, somava, comparava com a meta, e no fim do mês repetia tudo para montar o relatório. Todo mês. Sempre o mesmo trabalho, sempre sujeito ao mesmo erro de digitação.
+
+A informação existia. O que faltava era ela se organizar sozinha.
 
 ## Funcionalidades
 
@@ -35,6 +39,12 @@ Windows (`.exe`), com os dados salvos num arquivo ao lado do executável.
   em `localhost`, dados gravados em arquivo JSON ao lado do `.exe`).
 - **SVG** desenhado na mão para os gráficos.
 - `localStorage` + arquivo JSON para persistência (dependendo do modo de uso).
+
+## Como foi construído
+
+Front-end em JavaScript, HTML e CSS. A lógica de processamento de dados e os agrupamentos ficam separados da camada de tela, e os dados são estruturados em SQL.
+
+Uma coisa que eu decidi cedo e não mudei: a tela não faz conta. Toda apuração — soma, ranking, comparação com meta — acontece numa camada de cálculo própria, e a tela só mostra o resultado. Isso deixou os relatórios muito mais fáceis de conferir, porque quando um número sai errado eu sei exatamente onde procurar.
 
 ## Como rodar
 
@@ -81,6 +91,9 @@ docs/                    -> imagens / capturas de tela
 
 ## Autor
 
+Desenvolvido por Sandro — @sandrolimadf1984
+
+Desenvolvedor autodidata de Brasília, com atuação em desenvolvimento Full Stack, análise de sistemas e automação de processos.
 **Sandro de Lima Pereira**
 
 ## Licença
