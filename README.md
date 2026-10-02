@@ -42,7 +42,7 @@ A informação existia. O que faltava era ela se organizar sozinha.
 
 ## Como foi construído
 
-Front-end em JavaScript, HTML e CSS. A lógica de processamento de dados e os agrupamentos ficam separados da camada de tela, e os dados são estruturados em SQL.
+Front-end em JavaScript, HTML e CSS. A lógica de processamento de dados e os agrupamentos ficam separados da camada de tela. Os dados ficam salvos no próprio navegador (`localStorage`) ou, na versão programa, num arquivo JSON ao lado do executável.
 
 Uma coisa que eu decidi cedo e não mudei: a tela não faz conta. Toda apuração — soma, ranking, comparação com meta — acontece numa camada de cálculo própria, e a tela só mostra o resultado. Isso deixou os relatórios muito mais fáceis de conferir, porque quando um número sai errado eu sei exatamente onde procurar.
 
@@ -91,10 +91,9 @@ docs/                    -> imagens / capturas de tela
 
 ## Autor
 
-Desenvolvido por Sandro — @sandrolimadf1984
+Desenvolvido por **Sandro de Lima Pereira** — [@sandrolimadf1984](https://github.com/sandrolimadf1984)
 
-Desenvolvedor autodidata de Brasília, com atuação em desenvolvimento Full Stack, análise de sistemas e automação de processos.
-**Sandro de Lima Pereira**
+Analista de sistemas de Brasília, com atuação em análise de sistemas, desenvolvimento e automação de processos.
 
 ## Licença
 
